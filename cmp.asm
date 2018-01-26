@@ -6,7 +6,12 @@ section .data ;Data segment
 	StrLen equ $-prompt
 	
     DispNum db 'You entered: '  
-    DispNumLen equ $-DispNum        
+    DispNumLen equ $-DispNum    
+
+    msg1 db "
+ebx > eax", 0xa
+    msg2 db "ebx < eax", 0xa
+    MsgLen equ $-msg2 ;The length of the message     
     
     num1 dd ''
     num2 dd ''
@@ -108,8 +113,26 @@ _start:
 	mov edx, 5 
 	int 80h 
 
-; Exit code 
-	mov eax, 1 
-	mov ebx, 0 
-	int 80h 
+   nop
+   mov eax, [num1]
+   mov ebx, [num2]
+   cmp ebx, eax ; test to see if ebx > eax
+   jge greater  ; jump to "greatest" if true
+   mov edx, MsgLen  ; msg length
+   mov ecx, msg2
+   mov ebx, 1   ; stdout
+   mov eax, 4   ; write
+   int 0x80
+   mov eax, 1   ;exit
+   int 0x80
+greater:
+   mov edx, MsgLen
+   mov ecx, msg1
+   mov ebx, 1   ; stdout
+   mov eax, 4   ; write
+   int 0x80
+   mov eax, 1   ;exit
+   int 0x80
+
+
 
