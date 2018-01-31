@@ -1,3 +1,12 @@
+; ------------------------------------------------------------------
+; File name 	: COMP7615_Lab01.asm
+;
+; Description	: COMP7615_Lab01
+;
+; Author		: Arnold Myint (A00930841)
+;
+; Notes			: N/A
+;------------------------------------------------------------------
 section .data
 
   InputNum1 db 'Enter first number: '
